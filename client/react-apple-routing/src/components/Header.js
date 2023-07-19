@@ -15,7 +15,7 @@ function Header() {
           >
             ☰
           </button>
-          <a class="navbar-brand mx-auto" href="#">
+          <a class="navbar-brand mx-auto" href="/">
             <img src={logosm} />
           </a>
 
