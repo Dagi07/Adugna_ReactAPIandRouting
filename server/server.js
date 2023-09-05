@@ -150,7 +150,7 @@ conn.query(pric3, (err, results) => {
 
 app.get("/iphone", (req, res) => {
   conn.query(
-    "SELECT * FROM Products JOIN ProductDescription JOIN ProductPrice ON products.product_id = ProductDescription.product_id AND products.product_id = ProductPrice.product_id",
+    "SELECT * FROM Products JOIN ProductDescription JOIN ProductPrice ON Products.product_id = ProductDescription.product_id AND Products.product_id = ProductPrice.product_id",
     (err, rows, fields) => {
       let iphone = { products: [] };
       iphone.products = rows;
