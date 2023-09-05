@@ -3,17 +3,17 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const port = 3306;
+const port = 9000;
 
 let conn = mysql.createConnection({
-  // host: "localhost",
-  // user: "appleProductsUser",
-  // password: "appleProductsUser",
-  // database: "appleProductsUser",
-  host: "sql3.freemysqlhosting.net",
-  user: "sql3644093",
-  password: process.env.DB_PASS,
-  database: "sql3644093",
+  host: "localhost",
+  user: "appleProductsUser",
+  password: "appleProductsUser",
+  database: "appleProductsUser",
+  // host: "sql3.freemysqlhosting.net",
+  // user: "sql3644093",
+  // password: process.env.DB_PASS,
+  // database: "sql3644093",
 });
 
 conn.connect((err) => {
@@ -150,7 +150,7 @@ conn.query(pric3, (err, results) => {
 
 app.get("/iphone", (req, res) => {
   conn.query(
-    "SELECT * FROM products JOIN ProductDescription JOIN ProductPrice ON products.product_id = ProductDescription.product_id AND products.product_id = ProductPrice.product_id",
+    "SELECT * FROM Products JOIN ProductDescription JOIN ProductPrice ON products.product_id = ProductDescription.product_id AND products.product_id = ProductPrice.product_id",
     (err, rows, fields) => {
       let iphone = { products: [] };
       iphone.products = rows;
