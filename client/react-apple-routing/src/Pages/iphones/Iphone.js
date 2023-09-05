@@ -7,15 +7,17 @@ function Iphone() {
   const [prodState, setProdState] = useState([]);
 
   useEffect(() => {
-    fetch("/iphonesProducts.json")
+    fetch("https://applewebsite.onrender.com/iphone")
       .then((res) => res.json())
       .then((productState) => {
         let prodsArr = productState.products;
+        // let prodsArr = products;
+
         setProdState(prodsArr);
       });
   }, []);
 
-  // console.log(prodState);
+  console.log(prodState);
 
   let order = 1;
 
@@ -37,12 +39,12 @@ function Iphone() {
             </div>
           </div>
           {prodState.map((eachProduct) => {
-            let id = eachProduct.id;
-            let title = eachProduct.title;
-            let img = eachProduct.img;
-            let brief = eachProduct.brief;
-            let startPrice = eachProduct.StartPrice;
-            let priceRange = eachProduct.priceRange;
+            let id = eachProduct.product_id;
+            let title = eachProduct.product_name;
+            let img = eachProduct.product_img;
+            let brief = eachProduct.product_brief_description;
+            let startPrice = eachProduct.starting_price;
+            let priceRange = eachProduct.price_range;
             let productPage = eachProduct.productPage;
 
             let order1 = 1;
@@ -55,7 +57,7 @@ function Iphone() {
               order++;
             }
 
-            console.log(order1, order2);
+            // console.log(order1, order2);
 
             let productDiv = (
               <div
