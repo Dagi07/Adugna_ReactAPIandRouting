@@ -3,17 +3,17 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const port = 9000;
+const port = 3306;
 
 let conn = mysql.createConnection({
-  host: "localhost",
-  user: "appleProductsUser",
-  password: "appleProductsUser",
-  database: "appleProductsUser",
-  // host: "sql3.freemysqlhosting.net",
-  // user: "sql3644093",
-  // password: process.env.DB_PASS,
-  // database: "sql3644093",
+  // host: "localhost",
+  // user: "appleProductsUser",
+  // password: "appleProductsUser",
+  // database: "appleProductsUser",
+  host: "sql3.freemysqlhosting.net",
+  user: "sql3644093",
+  password: process.env.DB_PASS,
+  database: "sql3644093",
 });
 
 conn.connect((err) => {
