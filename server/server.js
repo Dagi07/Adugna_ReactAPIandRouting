@@ -1,12 +1,19 @@
 const mysql = require("mysql2");
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
+
+const port = 3306;
 
 let conn = mysql.createConnection({
-  host: "localhost",
-  user: "appleProductsUser",
-  password: "appleProductsUser",
-  database: "apple_products",
+  // host: "localhost",
+  // user: "appleProductsUser",
+  // password: "appleProductsUser",
+  // database: "appleProductsUser",
+  host: "sql3.freemysqlhosting.net",
+  user: "sql3644093",
+  password: process.env.DB_PASS,
+  database: "sql3644093",
 });
 
 conn.connect((err) => {
@@ -14,18 +21,18 @@ conn.connect((err) => {
   console.log("Connection created!");
 });
 
-conn.query(`CREATE DATABASE if not exists apple_products`, (err, result) => {
-  if (err) console.log(err);
-  console.log("apple_products database created");
-});
+// conn.query(`CREATE DATABASE if not exists ${conn.database}`, (err, result) => {
+//   if (err) console.log(err);
+//   console.log(`${conn.database} database created`);
+// });
 
 let app = express();
 
 app.use(cors());
 
-app.listen(7000, (err) => {
+app.listen(port, (err) => {
   if (err) throw err;
-  console.log("Server is listening on port 7000..");
+  console.log(`Server is listening on port ${port}..`);
 });
 
 let products = `CREATE TABLE if not exists Products(
@@ -88,11 +95,11 @@ conn.query(ProductPrice, (err) => {
 //   console.log("Orders Table created");
 // });
 
-let prod1 = `INSERT INTO products (product_url, product_name) VALUES ('iphonese', 'iPhone SE')`;
+let prod1 = `INSERT INTO Products (product_url, product_name) VALUES ('iphonese', 'iPhone SE')`;
 
-let prod2 = `INSERT INTO products (product_url, product_name) VALUES ('iphone11', 'iPhone 11')`;
+let prod2 = `INSERT INTO Products (product_url, product_name) VALUES ('iphone11', 'iPhone 11')`;
 
-let prod3 = `INSERT INTO products (product_url, product_name) VALUES ('iphone11pro', 'iPhone 11 Pro')`;
+let prod3 = `INSERT INTO Products (product_url, product_name) VALUES ('iphone11pro', 'iPhone 11 Pro')`;
 
 let desc1 = `INSERT INTO ProductDescription (product_id, product_brief_description, product_description, product_img, product_link) VALUES ('1', 'Lots to love. Less to spend.', 'iPhone SE packs our most powerful chip into our most popular size at our most affordable price. It’s just what you’ve been waiting for.', 'https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_se__barrz3dlvxea_small_2x.jpg', 'https://www.apple.com/shop/buy-iphone/iphone-11')`;
 
