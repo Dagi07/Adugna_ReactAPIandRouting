@@ -19,7 +19,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="iphone" element={<Iphone />} />
+          <Route path="/iphone" element={<Iphone />} />
           <Route path="*" element={<Four04 />} />
         </Routes>
 

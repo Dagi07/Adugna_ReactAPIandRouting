@@ -1,6 +1,7 @@
 import logosm from "../commonResource/images/icons/logo-sm.png";
 import sreachsm from "../commonResource/images/icons/search-icon-sm.png";
 import cartsm from "../commonResource/images/icons/cart-sm.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -15,9 +16,9 @@ function Header() {
           >
             ☰
           </button>
-          <a class="navbar-brand mx-auto" href="/">
+          <Link class="navbar-brand mx-auto" to="/">
             <img src={logosm} />
-          </a>
+          </Link>
 
           <div class="navbar-collapse collapse">
             <ul class="navbar-nav nav-justified w-100 nav-fill">
@@ -27,9 +28,9 @@ function Header() {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/iphone/">
+                <Link class="nav-link js-scroll-trigger" to="/iphone/">
                   iphone
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#">
