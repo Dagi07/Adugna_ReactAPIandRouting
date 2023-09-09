@@ -7,7 +7,7 @@ function Iphone() {
   const [prodState, setProdState] = useState([]);
 
   useEffect(() => {
-    fetch("/iphonesProducts.json")
+    fetch("http://localhost:7000/iphone")
       .then((res) => res.json())
       .then((productState) => {
         let prodsArr = productState.products;
@@ -36,14 +36,25 @@ function Iphone() {
               </div>
             </div>
           </div>
-          {prodState.map((eachProduct) => {
-            let id = eachProduct.id;
-            let title = eachProduct.title;
-            let img = eachProduct.img;
-            let brief = eachProduct.brief;
-            let startPrice = eachProduct.StartPrice;
-            let priceRange = eachProduct.priceRange;
-            let productPage = eachProduct.productPage;
+          {prodState.map((eachProduct, ep) => {
+            // // FOR JSON FILE
+            // let id = eachProduct.id;
+            // let title = eachProduct.title;
+            // let img = eachProduct.img;
+            // let brief = eachProduct.brief;
+            // let startPrice = eachProduct.StartPrice;
+            // let priceRange = eachProduct.priceRange;
+            // let productPage = eachProduct.productPage;
+
+            // FOR DATABASE
+            let id = eachProduct.product_id;
+            let title = eachProduct.product_name;
+            let img = eachProduct.product_img;
+            let brief = eachProduct.product_brief_description;
+            let startPrice = eachProduct.starting_price;
+            let priceRange = eachProduct.price_range;
+            let url = eachProduct.product_url;
+            let productPage = "/iphone/" + url;
 
             let order1 = 1;
             let order2 = 2;
@@ -55,11 +66,11 @@ function Iphone() {
               order++;
             }
 
-            console.log(order1, order2);
+            console.log(id);
 
             let productDiv = (
               <div
-                key={id}
+                key={ep}
                 className="row justify-content-center text-center product-holder h-100"
               >
                 <div className={`col-sm-12 col-md-6 my-auto order-${order1}`}>

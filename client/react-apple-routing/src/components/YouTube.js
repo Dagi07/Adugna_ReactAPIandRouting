@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './YouTubeVid.css'
+import "./YouTubeVid.css";
 
 function YouTube() {
   const [YTVs, setYTVs] = useState([]);
@@ -19,37 +19,37 @@ function YouTube() {
 
   return (
     <section>
-      
       <div className="container">
-      <div className="title-wraper mt-5">Latest Videos <br/><br/></div>
+        <div className="title-wraper mt-5">
+          Latest Videos <br />
+          <br />
+        </div>
         <div className="row justify-content-center">
           {/* <div className='row'>
           <div className='col-md-6'> */}
-          
+
           {YTVs.map((eachVid) => {
             let vidID = eachVid.id.videoId;
-            let vidLink = "https://www.youtube.com/watch?v=${vidID}";
+            let vidLink = `https://www.youtube.com/watch?v=${vidID}`;
             let vidWrapper = (
               <div key={vidID} className="col-md-6">
                 <div className="oneVid">
-                <div className="vidThumbnail">
-                  <a href={vidLink} target="_blank">
-                    <img src={eachVid.snippet.thumbnails.high.url} />
-                  </a>
-                </div>
-                <div className="infoWrapper">
-                  <div className="vidTitle">
+                  <div className="vidThumbnail">
                     <a href={vidLink} target="_blank">
-                      {eachVid.snippet.title}
+                      <img src={eachVid.snippet.thumbnails.high.url} />
                     </a>
                   </div>
-                  <div className="description">
-                    {eachVid.snippet.description}
+                  <div className="infoWrapper">
+                    <div className="vidTitle">
+                      <a href={vidLink} target="_blank">
+                        {eachVid.snippet.title}
+                      </a>
+                    </div>
+                    <div className="description">
+                      {eachVid.snippet.description}
+                    </div>
+                    <div className="pdate">{eachVid.snippet.publishedAt}</div>
                   </div>
-                  <div className="pdate">
-                    {eachVid.snippet.publishedAt}
-                  </div>
-                </div>
                 </div>
               </div>
             );

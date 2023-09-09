@@ -21,6 +21,11 @@ conn.query(`CREATE DATABASE if not exists apple_products`, (err, result) => {
 
 let app = express();
 
+const corsOptions = {
+  origin: "http://localhost:3000/",
+  optionSuccessStatus: 200,
+};
+
 app.use(cors());
 
 app.listen(7000, (err) => {
@@ -30,16 +35,16 @@ app.listen(7000, (err) => {
 
 let products = `CREATE TABLE if not exists Products(
             product_id int auto_increment,
-            product_url varchar(255) not null,
-            product_name varchar(255) not null,
+            product_url varchar(255) UNIQUE,
+            product_name varchar(255) unique,
             PRIMARY KEY (product_id)
         )`;
 
 let ProductDescription = `CREATE TABLE if not exists ProductDescription(
             description_id int auto_increment,
-            product_id int not null,
-            product_brief_description varchar(255) not null,
-            product_description varchar(255) not null,
+            product_id int UNIQUE,
+            product_brief_description varchar(255) UNIQUE,
+            product_description varchar(255) UNIQUE,
             product_img varchar(255) not null,
             product_link varchar(255) not null,
             PRIMARY KEY (description_id),
@@ -88,23 +93,83 @@ conn.query(ProductPrice, (err) => {
 //   console.log("Orders Table created");
 // });
 
-let prod1 = `INSERT INTO products (product_url, product_name) VALUES ('iphonese', 'iPhone SE')`;
+let prod1 = `
+INSERT INTO products (product_url, product_name) 
+SELECT 'iphonese', 'iPhone SE'
+WHERE NOT EXISTS (SELECT * FROM products
+  WHERE product_url='iphonese' AND product_name='iPhone SE' LIMIT 1)
 
-let prod2 = `INSERT INTO products (product_url, product_name) VALUES ('iphone11', 'iPhone 11')`;
+`;
 
-let prod3 = `INSERT INTO products (product_url, product_name) VALUES ('iphone11pro', 'iPhone 11 Pro')`;
+let prod2 = `
+INSERT INTO products (product_url, product_name) 
+SELECT 'iphone11', 'iPhone 11'
+WHERE NOT EXISTS (SELECT * FROM products
+  WHERE product_url='iphone11' AND product_name='iPhone 11' LIMIT 1)
+`;
 
-let desc1 = `INSERT INTO ProductDescription (product_id, product_brief_description, product_description, product_img, product_link) VALUES ('1', 'Lots to love. Less to spend.', 'iPhone SE packs our most powerful chip into our most popular size at our most affordable price. It’s just what you’ve been waiting for.', 'https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_se__barrz3dlvxea_small_2x.jpg', 'https://www.apple.com/shop/buy-iphone/iphone-11')`;
+let prod3 = `
+INSERT INTO products (product_url, product_name) 
+SELECT 'iphone11pro', 'iPhone 11 Pro'
+WHERE NOT EXISTS (SELECT * FROM products
+  WHERE product_url='iphone11pro' AND product_name='iPhone 11 Pro' LIMIT 1)
+`;
 
-let desc2 = `INSERT INTO ProductDescription (product_id, product_brief_description, product_description, product_img, product_link) VALUES ('2', 'Lots to love. Less to spend.', 'You can either pay for your new iPhone in full or pay monthly with carrier financing, iPhone Payments, the iPhone Upgrade Program, and now Apple Card Monthly Installments. Your carrier service plan will be charged separately. Just choose the option that works for you.', 'https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_11__bsnxu2gpf98i_small_2x.jpg', 'https://www.apple.com/shop/buy-iphone/iphone-11')`;
+let desc1 = `
+INSERT INTO ProductDescription (product_id, product_brief_description, product_description, product_img, product_link) 
+SELECT '1', 'Lots to love. Less to spend.', 'iPhone SE packs our most powerful chip into our most popular size at our most affordable price. It’s just what you’ve been waiting for.', 'https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_se__barrz3dlvxea_small_2x.jpg', 'https://www.apple.com/shop/buy-iphone/iphone-11'
+WHERE NOT EXISTS (SELECT * FROM ProductDescription
+  WHERE product_id='1' AND product_brief_description='Lots to love. Less to spend.' AND product_description='iPhone SE packs our most powerful chip into our most popular size at our most affordable price. It’s just what you’ve been waiting for.' AND product_img='https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_se__barrz3dlvxea_small_2x.jpg' AND product_link='https://www.apple.com/shop/buy-iphone/iphone-11' LIMIT 1)
+`;
 
-let desc3 = `INSERT INTO ProductDescription (product_id, product_brief_description, product_description, product_img, product_link) VALUES ('3', 'A transformative triple‑camera system that adds tons of capability without complexity. An unprecedented leap in battery life. And a mind‑blowing chip that doubles down on machine learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful enough to be called Pro.', 'Pro cameras. Pro display. Pro performance.', 'https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_11_pro__d2lf9zrtcv8m_small_2x.jpg','https://www.apple.com/shop/buy-iphone/iphone-11-pro')`;
+let desc2 = `
+INSERT INTO ProductDescription (product_id, product_brief_description, product_description, product_img, product_link) 
+SELECT '2', 'Lots to love. Less to spend.', 'You can either pay for your new iPhone in full or pay monthly with carrier financing, iPhone Payments, the iPhone Upgrade Program, and now Apple Card Monthly Installments. Your carrier service plan will be charged separately. Just choose the option that works for you.', 'https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_11__bsnxu2gpf98i_small_2x.jpg', 'https://www.apple.com/shop/buy-iphone/iphone-11'
+WHERE NOT EXISTS (SELECT * FROM ProductDescription
+  WHERE product_id='2' AND product_brief_description='Lots to love. Less to spend.' AND product_description='You can either pay for your new iPhone in full or pay monthly with carrier financing, iPhone Payments, the iPhone Upgrade Program, and now Apple Card Monthly Installments. Your carrier service plan will be charged separately. Just choose the option that works for you.' AND product_img='https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_11__bsnxu2gpf98i_small_2x.jpg' AND product_link='https://www.apple.com/shop/buy-iphone/iphone-11' LIMIT 1)
 
-let pric1 = `INSERT INTO ProductPrice (product_id, starting_price, price_range) VALUES ('1', '$399', 'From $9.54/mo. or $229 with trade-in.*')`;
+`;
 
-let pric2 = `INSERT INTO ProductPrice (product_id, starting_price, price_range) VALUES ('2', '$449', 'From $18.70/mo. or $449 with trade-in.*')`;
+let desc3 = `
+INSERT INTO ProductDescription (product_id, product_brief_description, product_description, product_img, product_link) 
+SELECT '3', 'Pro cameras. Pro display. Pro performance.', 'A transformative triple‑camera system that adds tons of capability without complexity. An unprecedented leap in battery life. And a mind‑blowing chip that doubles down on machine learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful enough to be called Pro.',  'https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_11_pro__d2lf9zrtcv8m_small_2x.jpg','https://www.apple.com/shop/buy-iphone/iphone-11-pro'
+WHERE NOT EXISTS (SELECT * FROM ProductDescription
+  WHERE product_id='3' AND product_brief_description='Pro cameras. Pro display. Pro performance.' AND product_description='A transformative triple‑camera system that adds tons of capability without complexity. An unprecedented leap in battery life. And a mind‑blowing chip that doubles down on machine learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful enough to be called Pro.' AND product_img='https://www.apple.com/v/iphone/home/aj/images/overview/hero/hero_iphone_11_pro__d2lf9zrtcv8m_small_2x.jpg' AND product_link='https://www.apple.com/shop/buy-iphone/iphone-11-pro' LIMIT 1)
+`;
+// conn.query(
+//   "UPDATE ProductDescription SET product_brief_description='Pro cameras. Pro display. Pro performance.' WHERE product_id='3'",
+//   (err, results) => {
+//     if (err) console.error(`error: ${err}`);
+//     console.log("Updated product brief description");
+//   }
+// );
+// conn.query(
+//   "UPDATE ProductDescription SET product_description='A transformative triple‑camera system that adds tons of capability without complexity. An unprecedented leap in battery life. And a mind‑blowing chip that doubles down on machine learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful enough to be called Pro.' WHERE product_id='3'",
+//   (err, results) => {
+//     if (err) console.error(`error: ${err}`);
+//     console.log("Updated product description column");
+//   }
+// );
 
-let pric3 = `INSERT INTO ProductPrice (product_id, starting_price, price_range) VALUES ('3', '$679', 'From $28.29/mo. or $679 with trade-in.*')`;
+let pric1 = `INSERT INTO ProductPrice (product_id, starting_price, price_range) 
+SELECT '1', '$399', 'From $9.54/mo. or $229 with trade-in.*'
+WHERE NOT EXISTS (SELECT * FROM ProductPrice
+  WHERE product_id='1' AND starting_price='$399' AND price_range='From $9.54/mo. or $229 with trade-in.*' LIMIT 1)
+`;
+
+let pric2 = `
+INSERT INTO ProductPrice (product_id, starting_price, price_range) 
+SELECT '2', '$449', 'From $18.70/mo. or $449 with trade-in.*'
+WHERE NOT EXISTS (SELECT * FROM ProductPrice
+  WHERE product_id='2' AND starting_price='$449' AND price_range='From $18.70/mo. or $449 with trade-in.*' LIMIT 1)
+`;
+
+let pric3 = `
+INSERT INTO ProductPrice (product_id, starting_price, price_range) 
+SELECT '3', '$679', 'From $28.29/mo. or $679 with trade-in.*'
+WHERE NOT EXISTS (SELECT * FROM ProductPrice
+  WHERE product_id='3' AND starting_price='$679' AND price_range='From $28.29/mo. or $679 with trade-in.*' LIMIT 1)
+`;
 
 conn.query(prod1, (err, results) => {
   if (err) console.error(`error: ${err}`);
