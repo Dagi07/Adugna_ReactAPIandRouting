@@ -6,6 +6,7 @@ import Iphoneelevensec from "./components/Iphoneelevensec";
 import Tvandwatch from "./components/Tvandwatch";
 import Arcadesec from "./components/Arcadesec";
 import Alertsec from "./components/Alertsec";
+import YouTube from "./components/YouTube";
 
 function Home() {
   return (
@@ -17,6 +18,7 @@ function Home() {
       <Iphoneelevensec />
       <Tvandwatch />
       <Arcadesec />
+      <YouTube />
     </div>
   );
 }

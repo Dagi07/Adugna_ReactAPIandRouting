@@ -11,11 +11,13 @@ function Iphone() {
       .then((res) => res.json())
       .then((productState) => {
         let prodsArr = productState.products;
+        // let prodsArr = products;
+
         setProdState(prodsArr);
       });
   }, []);
 
-  // console.log(prodState);
+  // console.log("state", prodState);
 
   let order = 1;
 
@@ -36,17 +38,7 @@ function Iphone() {
               </div>
             </div>
           </div>
-          {prodState.map((eachProduct, ep) => {
-            // // FOR JSON FILE
-            // let id = eachProduct.id;
-            // let title = eachProduct.title;
-            // let img = eachProduct.img;
-            // let brief = eachProduct.brief;
-            // let startPrice = eachProduct.StartPrice;
-            // let priceRange = eachProduct.priceRange;
-            // let productPage = eachProduct.productPage;
-
-            // FOR DATABASE
+          {prodState.map((eachProduct) => {
             let id = eachProduct.product_id;
             let title = eachProduct.product_name;
             let img = eachProduct.product_img;
@@ -66,11 +58,11 @@ function Iphone() {
               order++;
             }
 
-            console.log(id);
+            // console.log(order1, order2);
 
             let productDiv = (
               <div
-                key={ep}
+                key={id}
                 className="row justify-content-center text-center product-holder h-100"
               >
                 <div className={`col-sm-12 col-md-6 my-auto order-${order1}`}>

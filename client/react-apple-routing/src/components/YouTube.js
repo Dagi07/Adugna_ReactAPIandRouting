@@ -3,10 +3,12 @@ import "./YouTubeVid.css";
 
 function YouTube() {
   const [YTVs, setYTVs] = useState([]);
+  const ytApi = process.env.REACT_APP_YTAPI;
+  // console.log(ytApi);
 
   useEffect(() => {
     fetch(
-      "https://www.googleapis.com/youtube/v3/search?key='#'&channelId=UCE_M8A5yxnLfW0KghEeajjw&part=snippet,id&order=date&maxResults=12"
+      `https://www.googleapis.com/youtube/v3/search?key=${ytApi}&channelId=UCE_M8A5yxnLfW0KghEeajjw&part=snippet,id&order=date&maxResults=12`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -15,7 +17,7 @@ function YouTube() {
       });
   }, []);
 
-  console.log(YTVs);
+  // console.log(YTVs);
 
   return (
     <section>
