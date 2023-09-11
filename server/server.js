@@ -3,17 +3,13 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const port = 7000;
+const port = process.env.PORT;
 
 let conn = mysql.createConnection({
-  host: "localhost",
-  user: "appleProductsUser",
-  password: "appleProductsUser",
-  database: "apple_products",
-  // host: process.env.DB_HOST,
-  // user: process.env.DB_USER,
-  // password: process.env.DB_PASS,
-  // database: process.env.DB_NAME,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
 });
 
 conn.connect((err) => {

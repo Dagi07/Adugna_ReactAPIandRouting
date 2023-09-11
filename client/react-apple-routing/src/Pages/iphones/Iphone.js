@@ -7,7 +7,8 @@ function Iphone() {
   const [prodState, setProdState] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:7000/iphone")
+    // fetch("http://localhost:7000/iphone")
+    fetch("https://applewebsite.onrender.com/")
       .then((res) => res.json())
       .then((productState) => {
         let prodsArr = productState.products;
