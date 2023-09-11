@@ -151,8 +151,10 @@ app.get("/iphone", (req, res) => {
     "SELECT * FROM Products JOIN ProductDescription JOIN ProductPrice ON Products.product_id = ProductDescription.product_id AND Products.product_id = ProductPrice.product_id",
     (err, rows, fields) => {
       let iphone = { products: [] };
+
       iphone.products = rows;
       var stringIphones = JSON.stringify(iphone);
+
       if (!err) res.end(stringIphones);
       else console.error(err);
     }

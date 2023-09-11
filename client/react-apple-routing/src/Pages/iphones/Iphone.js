@@ -8,7 +8,7 @@ function Iphone() {
 
   useEffect(() => {
     // fetch("http://localhost:7000/iphone")
-    fetch("https://applewebsite.onrender.com/")
+    fetch("https://applewebsite.onrender.com/iphone")
       .then((res) => res.json())
       .then((productState) => {
         let prodsArr = productState.products;
@@ -74,6 +74,7 @@ function Iphone() {
                   <div className="links-wrapper">
                     <ul>
                       <li>
+                        ${console.log("productPage", productPage)}
                         <Link to={productPage}>Learn more</Link>
                       </li>
                     </ul>
@@ -87,6 +88,7 @@ function Iphone() {
                 </div>
               </div>
             );
+            console.log(productDiv);
             return productDiv;
           })}
         </div>

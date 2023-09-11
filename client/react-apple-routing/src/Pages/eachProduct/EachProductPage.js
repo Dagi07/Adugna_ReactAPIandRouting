@@ -4,11 +4,13 @@ import Four04 from "../Four04/Four04";
 
 function EachProductPage() {
   const [product, setProduct] = useState([]);
+  // useParams hook accesses parameters from the current route
   const { urLink } = useParams();
   // console.log(urLink);
 
   useEffect(() => {
-    fetch("http://localhost:7000/iphone")
+    // fetch("http://localhost:7000/iphone")
+    fetch("https://applewebsite.onrender.com/iphone")
       .then((sp) => sp.json())
       .then((data) => {
         const prodLiist = data.products;
