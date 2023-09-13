@@ -1,10 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../commonResource/css/bootstrap.css";
 import "../../commonResource/css/styles.css";
 import { Link } from "react-router-dom";
 
 function Iphone() {
   const [prodState, setProdState] = useState([]);
+
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const updateWindowDimensions = () => {
+      const newWidth = window.innerWidth;
+      setWidth(newWidth);
+      console.log("updating width");
+    };
+
+    window.addEventListener("resize", updateWindowDimensions);
+
+    return () => window.removeEventListener("resize", updateWindowDimensions);
+  }, []);
+
+  console.log("give width", width);
 
   useEffect(() => {
     // fetch("http://localhost:7000/iphone")
@@ -17,8 +33,6 @@ function Iphone() {
         setProdState(prodsArr);
       });
   }, []);
-
-  // console.log("state", prodState);
 
   let order = 1;
 
@@ -51,12 +65,14 @@ function Iphone() {
 
             let order1 = 1;
             let order2 = 2;
-            if (order !== 1) {
-              order1 = 2;
-              order2 = 1;
-              order--;
-            } else {
-              order++;
+            if (width > 768) {
+              if (order !== 1) {
+                order1 = 2;
+                order2 = 1;
+                order--;
+              } else {
+                order++;
+              }
             }
 
             // console.log(order1, order2);
@@ -64,7 +80,7 @@ function Iphone() {
             let productDiv = (
               <div
                 key={id}
-                className="row justify-content-center text-center product-holder h-100"
+                className="row justify-content-center text-center product-holder h-100 mt-sm-5 mt-md-0"
               >
                 <div className={`col-sm-12 col-md-6 my-auto order-${order1}`}>
                   <div className="product-title">{title}</div>
@@ -74,7 +90,7 @@ function Iphone() {
                   <div className="links-wrapper">
                     <ul>
                       <li>
-                        ${console.log("productPage", productPage)}
+                        {/* ${console.log("productPage", productPage)} */}
                         <Link to={productPage}>Learn more</Link>
                       </li>
                     </ul>
@@ -88,7 +104,7 @@ function Iphone() {
                 </div>
               </div>
             );
-            console.log(productDiv);
+            // console.log(productDiv);
             return productDiv;
           })}
         </div>
