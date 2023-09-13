@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Iphone() {
   const [prodState, setProdState] = useState([]);
 
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const updateWindowDimensions = () => {
@@ -80,7 +80,7 @@ function Iphone() {
             let productDiv = (
               <div
                 key={id}
-                className="row justify-content-center text-center product-holder h-100 mt-sm-5 mt-md-0"
+                className="row justify-content-center text-center product-holder h-100 mt-5 mt-md-0"
               >
                 <div className={`col-sm-12 col-md-6 my-auto order-${order1}`}>
                   <div className="product-title">{title}</div>

@@ -25,10 +25,6 @@ function Header() {
     }
   };
 
-  if (!isNavOpen) {
-    document.body.addEventListener("click", () => setIsNavOpen(false));
-  }
-
   return (
     <div class="nav-wrapper fixed-top">
       <div class="container">
@@ -47,6 +43,7 @@ function Header() {
           </Link>
 
           <div
+            // className=""
             class={`navbar-collapse collapse ${isNavOpen ? "show" : ""}`}
             id="collapsibleNavbar"
           >

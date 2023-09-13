@@ -18,7 +18,7 @@ function Home() {
       <Iphoneelevensec />
       <Tvandwatch />
       <Arcadesec />
-      <YouTube />
+      {/* <YouTube /> */}
     </div>
   );
 }

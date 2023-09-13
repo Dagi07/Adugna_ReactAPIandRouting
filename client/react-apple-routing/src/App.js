@@ -11,6 +11,7 @@ import Iphone from "./Pages/iphones/Iphone";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Four04 from "./Pages/Four04/Four04";
 import EachProductPage from "./Pages/eachProduct/EachProductPage";
+import Mac from "./Pages/mac/Mac";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="mac" element={<Mac />} />
           <Route path="iphone" element={<Iphone />} />
           <Route path="iphone/:urLink" element={<EachProductPage />} />
           <Route path="*" element={<Four04 />} />
