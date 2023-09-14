@@ -60,7 +60,7 @@ let macproductdescription = `CREATE TABLE if not exists macproductdescription(
     product_img varchar(255) not null,
     product_link varchar(255) not null,
     PRIMARY KEY (description_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    FOREIGN KEY (product_id) REFERENCES macproducts(product_id)
 )`;
 let macproductprice = `CREATE TABLE if not exists macproductprice(
     price_id int auto_increment,
@@ -68,7 +68,7 @@ let macproductprice = `CREATE TABLE if not exists macproductprice(
     starting_price varchar(255) not null,
     price_range varchar(255) not null,
     PRIMARY KEY (price_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    FOREIGN KEY (product_id) REFERENCES macproducts(product_id)
 )`;
 
 // let User = `CREATE TABLE if not exists User(user_id int auto_increment,
@@ -231,39 +231,4 @@ const addMac = () => {
   });
 };
 
-// fetch MAC
-const getMac = () => {
-  conn.query(
-    "SELECT * FROM macproducts JOIN macproductdescription JOIN macproductprice ON macproducts.product_id = macproductdescription.product_id AND macproducts.product_id = macproductprice.product_id",
-    (err, rows, fields) => {
-      //   console.log(rows);
-      let mac = { products: [] };
-
-      mac.products = rows;
-
-      let stringMac = JSON.stringify(mac);
-      //   console.log(stringMac);
-
-      if (!err) res.end(stringMac);
-      else console.error(err);
-    }
-  );
-};
-
-// fetch iphones
-const getIphones = () => {
-  conn.query(
-    "SELECT * FROM Products JOIN ProductDescription JOIN ProductPrice ON Products.product_id = ProductDescription.product_id AND Products.product_id = ProductPrice.product_id",
-    (err, rows, fields) => {
-      let iphone = { products: [] };
-
-      iphone.products = rows;
-      var stringIphones = JSON.stringify(iphone);
-
-      if (!err) res.end(stringIphones);
-      else console.error(err);
-    }
-  );
-};
-
-module.exports = { conn, addIphones, getIphones, addMac, getMac };
+module.exports = { conn, addIphones, addMac };

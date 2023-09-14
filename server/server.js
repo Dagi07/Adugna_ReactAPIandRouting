@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const conn = require("./config/db");
-const { addIphones, getIphones, addMac, getMac } = require("./config/db");
+// const conn = require("./config/db");
+const { conn, addIphones, getIphones, addMac, getMac } = require("./config/db");
 
 const port = process.env.PORT;
 
@@ -20,14 +20,40 @@ app.get("/addIphones", (req, res) => {
 });
 
 app.get("/iphone", (req, res) => {
-  getIphones();
+  conn.query(
+    "SELECT * FROM Products JOIN ProductDescription JOIN ProductPrice ON Products.product_id = ProductDescription.product_id AND Products.product_id = ProductPrice.product_id",
+    (err, rows, fields) => {
+      let iphone = { products: [] };
+
+      iphone.products = rows;
+      let stringIphones = JSON.stringify(iphone);
+
+      if (!err) res.end(stringIphones);
+      else console.error(err);
+    }
+  );
 });
 app.get("/addmac", (req, res) => {
   addMac();
 });
 
 app.get("/mac", (req, res) => {
-  getMac();
+  // fetch MAC
+  conn.query(
+    "SELECT * FROM macproducts JOIN macproductdescription JOIN macproductprice ON macproducts.product_id = macproductdescription.product_id AND macproducts.product_id = macproductprice.product_id",
+    (err, rows, fields) => {
+      //   console.log(rows);
+      let mac = { products: [] };
+
+      mac.products = rows;
+
+      let stringMac = JSON.stringify(mac);
+      //   console.log(stringMac);
+
+      if (!err) res.end(stringMac);
+      else console.error(err);
+    }
+  );
 });
 
 // const mysql = require("mysql2");
