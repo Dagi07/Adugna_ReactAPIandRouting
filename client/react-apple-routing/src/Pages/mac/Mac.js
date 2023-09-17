@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Mac = () => {
   const [prodState, setProdState] = useState([]);
@@ -9,18 +10,33 @@ const Mac = () => {
       .then((jsonData) => jsonData.json())
       .then((objData) => {
         let dataArr = objData.products;
+        // console.log(dataArr)
         setProdState(dataArr);
       });
   }, []);
-
+  // console.log(prodState)
   useEffect(() => {
-    setWidth(window.innerWidth);
+    const updateWindowDimensions = () => {
+      const newWidth = window.innerWidth;
+      setWidth(newWidth);
+      // console.log("updating width");
+    };
 
-    window.addEventListener("resize", setWidth(window.innerWidth));
+    window.addEventListener("resize", updateWindowDimensions);
 
-    return () =>
-      window.removeEventListener("resize", setWidth(window.innerWidth));
+    return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
+
+  // console.log("give width", width);
+
+  // useEffect(() => {
+  //   setWidth(window.innerWidth);
+
+  //   window.addEventListener("resize", setWidth(window.innerWidth));
+
+  //   return () =>
+  //     window.removeEventListener("resize", setWidth(window.innerWidth));
+  // }, []);
 
   let order = 1;
 
@@ -54,6 +70,7 @@ const Mac = () => {
               }
             }
 
+            let productDiv = (
             <div
               key={eachMac.product_id}
               className="row justify-content-center text-center product-holder h-100 mt-5 mt-md-0"
@@ -82,7 +99,9 @@ const Mac = () => {
                   <img src={eachMac.product_img} alt="" />
                 </div>
               </div>
-            </div>;
+            </div>
+            )
+            return productDiv
           })}
         </div>
       </section>
