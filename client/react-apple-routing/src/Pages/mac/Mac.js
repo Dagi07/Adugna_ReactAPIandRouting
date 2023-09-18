@@ -6,7 +6,8 @@ const Mac = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    fetch("http://localhost:7000/mac")
+    // fetch("http://localhost:7000/mac")
+    fetch("https://applewebsite.onrender.com/mac")
       .then((jsonData) => jsonData.json())
       .then((objData) => {
         let dataArr = objData.products;
@@ -86,7 +87,7 @@ const Mac = () => {
                   <ul>
                     <li>
                       {/* ${console.log("productPage", productPage)} */}
-                      <Link to={"/iphone/" + eachMac.product_url}>
+                      <Link to={"/mac/" + eachMac.product_url}>
                         Learn more
                       </Link>
                     </li>

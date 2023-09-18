@@ -69,7 +69,8 @@ function Header() {
               <li class="nav-item">
                 <Link
                   class="nav-link js-scroll-trigger"
-                  to="/ipad"
+                  // to="/ipad"
+                  to="/mac/"
                   onClick={handleLinkClick}
                 >
                   ipad
@@ -78,7 +79,8 @@ function Header() {
               <li class="nav-item">
                 <Link
                   class="nav-link js-scroll-trigger"
-                  to="/watch"
+                  // to="/watch"
+                  to="/iphone/"
                   onClick={handleLinkClick}
                 >
                   watch
@@ -87,7 +89,8 @@ function Header() {
               <li class="nav-item">
                 <Link
                   class="nav-link js-scroll-trigger"
-                  to="/tv"
+                  // to="/tv"
+                  to="/mac/"
                   onClick={handleLinkClick}
                 >
                   tv
@@ -96,7 +99,8 @@ function Header() {
               <li class="nav-item">
                 <Link
                   class="nav-link js-scroll-trigger"
-                  to="/music"
+                  // to="/music"
+                  to="/iphone/"
                   onClick={handleLinkClick}
                 >
                   Music
@@ -105,7 +109,8 @@ function Header() {
               <li class="nav-item">
                 <Link
                   class="nav-link js-scroll-trigger"
-                  to="/support"
+                  // to="/support"
+                  to="/mac/"
                   onClick={handleLinkClick}
                 >
                   Support
@@ -114,7 +119,8 @@ function Header() {
               <li class="nav-item">
                 <Link
                   class="nav-link js-scroll-trigger"
-                  to="/search/"
+                  // to="/search/"
+                  to="/iphone/"
                   onClick={handleLinkClick}
                 >
                   <img src={sreachsm} />
@@ -123,7 +129,8 @@ function Header() {
               <li class="nav-item">
                 <Link
                   class="nav-link js-scroll-trigger"
-                  to="/cart/"
+                  // to="/cart/"
+                  to="/mac/"
                   onClick={handleLinkClick}
                 >
                   <img src={cartsm} />
